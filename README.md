@@ -6,14 +6,27 @@ The Facial Recognition Attendance System is a comprehensive project developed as
 
 (**NOTE:** You will need to manually add an Admin User in your database in 'user_database', as I removed all databases for privacy reasons and it is not permitted to add an Administrator Account through the Register Page.)
 
-### Objectives
+
+(**DISCLAIMER:** Some parts of this project include code or components derived from open-source projects. These contributions have been utilized to enhance the functionality and efficiency of the project.)
+
+(**ASSISTANCE:** As this project of mine is still ongoing, you might encounter some problems whilst trying to use it. Please reach out to me through my socials and I will try to get back to you as soon as possible!)
+
+
+## Socials 
+
+- E-Mail Address: **ongxuechen@outlook.com**
+- LinkedIn: **www.www.linkedin.com/in/ong-xuechen**
+
+
+
+## Objectives
 
 - **Automate Attendance Tracking**: Replace traditional manual attendance methods with an automated system that uses facial recognition to log attendance.
 - **Reduce Errors**: Minimize human errors associated with manual attendance recording by using a reliable technology-based solution.
 - **Increase Efficiency**: Save time for both educators and students by providing a fast and efficient way to track attendance.
 - **User-Friendly Interface**: Design an intuitive user interface that simplifies the setup and operation of the system.
 
-### How It Works
+## How It Works
 
 The system operates by capturing real-time images of students as they enter the classroom. These images are processed and compared against a pre-enrolled database of student faces. The system uses machine learning models to recognize and match faces, automatically marking the attendance for each recognized student.
 
@@ -22,7 +35,7 @@ The system operates by capturing real-time images of students as they enter the 
 3. **Attendance Logging**: Once a student is identified, their attendance is recorded in a database, marking them present for that session.
 4. **Reporting**: The system generates attendance reports that can be used for tracking and analysis.
 
-### Technical Details
+## Technical Details
 
 - **Programming Languages**: Python
 - **Web Framework**: Flask
@@ -59,12 +72,15 @@ To get started with this project, follow these steps:
 **Access the Application:** Open your web browser and navigate to http://localhost:5000 to access the application.
 
 **Login:** Use the login page to authenticate. Only authorized users can access the application.
+
 **Register:** If the user does not have an existing account, they must register via the 'Register Page' and upload a photo of themselves.
 
 **Attendance Taking: (USER)** The student will automatically have their attendance marked, as they scan their face.
+
 **Attendance Taking: (ADMIN)** The administrator will be able to generate a video capture to scan the faces of the students.
 
 **View Attendance: (USER)** The student will be able to view their attendance after they have logged in.
+
 **View Attendance: (ADMIN)** The administrator will be able to view/edit/remove student's attendance after they have logged in.
 
 

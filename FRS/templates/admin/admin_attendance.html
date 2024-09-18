@@ -1,0 +1,83 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+
+<!-- page content -->
+<div class="manage-container">
+    <div class="manage-container-border">
+        <div class="manage-header-container">
+            <h2 align="center">View Attendance</h2>
+            <h6>Please refer to the table below to view all of the student's current and past attendance records</h6>
+        </div>
+        <div class="manage-table-container">
+
+            <!-- search queries container -->
+            <div class="AA_search-container">
+                <!-- Search Form for Username -->
+                <form action="{{ url_for('attendance') }}" method="GET">
+                    <div class="AA_search-form">
+                        <input type="text" name="username" id="search_username" placeholder="Username" required>
+                        <button type="submit" class="button"><i class="fa fa-search"></i></button>
+                        <a href="{{ url_for('attendance') }}" class="button">Clear Search</a>
+                    </div>
+                </form>
+
+                <!-- Search Form for Module -->
+                <form action="{{ url_for('attendance') }}" method="GET">
+                    <div class="AA_search-form">
+                        <input type="text" name="module" id="search_module" placeholder="Module Name" required>
+                        <button type="submit" class="button"><i class="fa fa-search"></i></button>
+                        <a href="{{ url_for('attendance') }}" class="button">Clear Search</a>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <table class="manage-table">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 20px;">Username</th>
+                        <th style="padding-left: 20px;">Timestamp (Sign In)</th>
+                        <th style="padding-left: 20px;">Module</th>
+                        <th style="padding-left: 20px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance_records %}
+                    <tr>
+                        <td class="manage-table-cell" style="padding-left: 20px;">{{ record[1] }}</td>
+                        <td class="manage-table-cell" style="padding-left: 20px;">{{ record[2] }}</td>
+                        <td class="manage-table-cell" style="padding-left: 20px;">{{ record[3] }}</td>
+                        <td>
+                            <form action="{{ url_for('delete_attendance') }}" method="post">
+                                <input type="hidden" name="attendance_id" value="{{ record[0] }}">
+                                <button type="submit" class="manage-btn-icon delete"><i class="fas fa-trash-alt"></i>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <form action="{{ url_for('clear_attendance') }}" method="post">
+                <div class="center">
+                    <br>
+                    <button type="submit" class="manage-btn-icon delete">Clear All Attendance Records</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- table pagination -->
+<div class="manage-pagination-container" style="margin-top: 20px; margin-left: 66px;">
+    <ul class="pagination pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Previous</a></li>
+        {% for page_num in range(1, total_pages + 1) %}
+        <li class="page-item {% if page_num == current_page %}active{% endif %}">
+            <a class="page-link" id="manage-page-num" href="?page={{ page_num }}" style="z-index: 0;">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">Next &raquo;</a></li>
+    </ul>
+</div>
+
+{% endblock %}

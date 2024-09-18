@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <!-- admin navbar bootstrap cdn links (updated) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.6.1/font/bootstrap-icons.min.css">
+    <!-- font awesome icon admin guide -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="" integrity="" crossorigin="">
+
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- bootstrap link broadcast page -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- icon for enrollment success page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- own css stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_base_template.css')}}">
+    {% block head %}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    {% block navbar %}
+        <!-- include admin navbar -->
+        {% include 'includes/admin_navbar.html' %}
+    {% endblock %}
+
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block footer %}
+        <!-- include admin footer -->
+        {% include 'includes/admin_footer.html' %}
+    {% endblock %}
+
+    {% block scripts %}
+    <!-- jquery links for admin navbar (updated) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="" integrity="" crossorigin=""></script>
+
+    <!-- own javascript -->
+    <script src="{{url_for('static', filename='js/admin_base_template.js')}}"></script>
+    {% endblock %}
+</body>
+
+</html>

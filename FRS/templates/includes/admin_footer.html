@@ -1,0 +1,9 @@
+<!-- admin footer content -->
+<br/>
+<footer class="footer">
+    {% if previous_login %}
+        <p>&copy; 2023 Face Recognition Attendance System | All Rights Reserved | Last Login on {{ previous_login }}</p>
+    {% else %}
+        <p>&copy; 2023 Face Recognition Attendance System | All Rights Reserved | Last Login on {{ last_login }}</p>
+    {% endif %}
+</footer>

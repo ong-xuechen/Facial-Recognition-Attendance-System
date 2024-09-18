@@ -1,0 +1,79 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Facial Recognition Attendance System{% endblock %}
+{% block content %}
+
+<!-- broadcast main content -->
+<div class="broadcast_main-content">
+    <div class="broadcast_card-container">
+        <div class="broadcast_header">
+            <div class="broadcast_message-text">Broadcast Message</div>
+        </div>
+        <form class="broadcast_form" id="broadcast-form" onsubmit="return showSuccessMessage(event)">
+            <div class="broadcast_form-group">
+                <input type="text" class="form-control" id="message-title" name="message_title" placeholder="message title" required>
+            </div>
+            <div class="broadcast_form-group">
+                <textarea class="form-control" id="message-content" name="message_content" rows="4" placeholder="message content" required></textarea>
+            </div>
+            <div class="broadcast_form-group row">
+                <div class="col">
+                    <input type="text" class="form-control" id="sender-name" name="sender_name" placeholder="sender name" required>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="sender-role" name="sender_role" value="admin" readonly>
+                </div>
+            </div>
+            <div class="broadcast_form-group">
+                <input type="text" class="form-control" id="real-time" name="real_time" readonly>
+            </div>
+            <button type="submit" class="broadcast_btn-broadcast broadcast_btn-broadcast-full-width" id="broadcast-btn">Broadcast Message</button>
+        </form>
+        <div class="broadcast_success-message" id="success-message">
+            <span class="broadcast_success-icon">&#10004;</span>Message broadcasted successfully!
+        </div>
+    </div>
+</div>
+
+<!-- js script for handling notification broadcast -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+<script type="text/javascript">
+const socket = io.connect('http://localhost:5000');
+const form = document.getElementById('broadcast-form');
+const successMessage = document.getElementById('success-message');
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const messageTitle = form.elements['message_title'].value;
+    const messageContent = form.elements['message_content'].value;
+    const senderName = form.elements['sender_name'].value;
+    const senderRole = form.elements['sender_role'].value;
+
+    const message = {
+        title: messageTitle,
+        content: messageContent,
+        sender: {
+            name: senderName,
+            role: senderRole,
+        }
+    };
+
+    socket.emit('broadcast', { 'message': message });
+    form.reset();
+    successMessage.style.display = 'block';
+    setTimeout(() => {
+        successMessage.style.display = 'none';
+    }, 3000);
+});
+
+// Function to display real-time date and time
+function updateDateTime() {
+    const dateTimeElement = document.getElementById('real-time');
+    const now = new Date();
+    const dateTimeString = now.toLocaleString();
+    dateTimeElement.value = dateTimeString;
+}
+
+setInterval(updateDateTime, 1000);
+</script>
+
+{% endblock %}

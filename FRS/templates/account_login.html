@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f6f6f6;
+        }
+
+        .navbar {
+            background-color: #438789 !important;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #dcdcdc !important;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: white !important;
+        }
+
+        .container {
+            background-color: #f6f6f6;
+        }
+
+        /* Add styles for the footer */
+        .footer {
+            background-color: #6c757d;
+            padding: 10px;
+            color: white;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 39px;
+        }
+
+        /* toggle button css display */
+        .login-toggle {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .login-toggle label {
+            flex-grow: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        .toggle-button {
+            background-color: #ccc;
+            padding: 8px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-button:checked {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .login-toggle input[type="radio"] {
+            display: none;
+        }
+
+        .login-toggle label {
+            display: inline-block;
+            background-color: #ccc;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-toggle input[type="radio"]:checked + label {
+            background-color: #438789 !important;
+            color: white;
+        }
+
+        /* login contents css */
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-split {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .left-split img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 123px;
+        }
+
+        .right-split {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+        .right-split h1 {
+            font-size: 22px;
+            margin-top: 30px;
+        }
+
+        .right-split h3 {
+            font-size: 17px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .card-container {
+            width: 550px;
+            background-color: rgba(253, 221, 135, 0.6); /* 40% lighter */
+            border-radius: 10px;
+            box-shadow:0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card-container input,
+        .card-container select { /* Apply styles to both input and select */
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .card-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .button-login {
+            margin-top: 20px;
+            background-color: #c1bdb4;
+        }
+
+        .login-button button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+          .container {
+            flex-direction: column;
+          }
+
+          .left-split {
+            order: 1;
+            margin-bottom: 20px; /* Add some spacing between the splits */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .left-split img {
+            max-width: 100%;
+            height: auto;
+          }
+
+          .right-split {
+            order: 2;
+            margin-top: 0;
+            align-items: center;
+          }
+
+          .card-container {
+            width: 100%;
+          }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#" style="font-size: 25px;">Face Recognition Attendance System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register1') }}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('login') }}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- place registration and login contents here -->
+    <div class="container">
+        <div class="left-split">
+            <img src="{{ url_for('static', filename='img/login-animation.gif') }}" alt="Animated GIF">
+        </div>
+        <div class="right-split">
+            <h1>Welcome to Face Recognition Attendance System</h1>
+            <h3>Greetings! You can access the attendance system and more via this face recognition attendance application.</h3>
+            <h3 style="text-align: left;">To begin, proceed to log in or <a href="{{ url_for('register1') }}" style="text-decoration: none;">register</a> if you do not have an account.</h3> <!-- updated alignment -->
+            <div class="card-container">
+                {% if error %}
+                    <p class="alert alert-warning" style="color: red;">{{ error }}</p>
+                {% endif %}
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <div class="alert alert-warning" style="color:red">
+                      {% for message in messages %}
+                        {{ message }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endwith %}
+                <form action="{{ url_for('login') }}" method="POST">
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+
+<!--                    <label>You are logging in as</label>-->
+<!--                    <div class="login-toggle">-->
+<!--                        <input type="radio" id="user" name="is_admin" value="user" checked>-->
+<!--                        <label for="user">Login as User</label>-->
+<!--                        <input type="radio" id="admin" name="is_admin" value="admin">-->
+<!--                        <label for="admin">Login as Admin</label>-->
+<!--                    </div>-->
+                    <input type="submit" value="Login" class="button-login">
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <!-- Add the footer -->
+    <br/>
+    <footer class="footer">
+        <p>&copy; 2023 Face Recognition Attendance System | All Rights Reserved</p>
+    </footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    // Set default values on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('register-link').classList.add('active');
+        document.getElementById('user').checked = true; // Set the user button as checked by default
+    });
+
+    // Add event listeners to the nav links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(function(navLink) {
+        navLink.addEventListener('click', function() {
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+</script>
+</html>

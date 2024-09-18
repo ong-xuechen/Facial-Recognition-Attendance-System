@@ -1,0 +1,44 @@
+{% extends "admin_base_template.html" %}
+{% block title %}User Management{% endblock %}
+{% block content %}
+
+<!-- admin guide page header -->
+<br/>
+<div class="admin-guide-header">
+    <h2>Admin Guide</h2>
+</div>
+
+<!-- admin guide content -->
+<div class="first-container">
+    <div class="section-heading-container">
+        <h2 class="section-heading">User Information Records</h2>
+    </div>
+    <div class="section-content">
+        <p>The user information records table shows the users' inputs retrieved from the face registration form.
+            The table will update dynamically and automatically with new users' records.</p>
+    </div>
+</div>
+
+<div class="second-container">
+    <div class="section-heading-container">
+        <h2 class="section-heading">Face Enrollment Processing</h2>
+    </div>
+    <div class="section-content">
+        <p>The "face enrollment processing" section enables admins to facilitate users in the face enrollment process.</p>
+        <p>You are required to perform the following steps:</p>
+        <ul>
+            <li>You may choose to enter the number of records to enroll and process. For example, if 25 records were entered, the first 25 rows will be displayed upon clicking on the <b>Generate</b> button.</li>
+            <li>Click on the <b>Reset</b> button to revert back to the initial table.</li>
+            <li>You may choose to select multiple column(s) to enroll and process.</li>
+            <li>Ensure that the above steps are completed before proceeding to complete the face enrollment process.</li>
+        </ul>
+        <p>Once the face enrollment process is completed, please proceed to click on "Proceed to train" button to train users' photos.</p>
+    </div>
+</div>
+
+<!-- Scroll-to-top button -->
+<button class="scroll-to-top-button" onclick="scrollToTop()">
+    <i class="fa-solid fa-up-long"></i>
+</button>
+
+{% endblock %}

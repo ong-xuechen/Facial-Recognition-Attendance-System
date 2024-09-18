@@ -1,0 +1,19 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Delete Modules{% endblock %}
+{% block content %}
+<div class="center-container-edit">
+    <div class="container-edit-user">
+        <div class="header-container-edit">
+            <h1>Delete Module</h1>
+        </div>
+        <br>
+        <p style="text-align:center;">Do you want to delete the module: "{{ module.module_name }}"?</p>
+        <form action="{{ url_for('delete_modules', module_id=module.id) }}" method="post">
+            <div class="btn-container-update">
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+{% endblock %}

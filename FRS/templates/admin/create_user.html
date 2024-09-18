@@ -1,0 +1,96 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Create User{% endblock %}
+{% block content %}
+<style>
+.create-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.create-user-container-border {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    background-color: #fff;
+}
+
+.create-user-header-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-user-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-user-form-container label {
+    margin-bottom: 5px;
+}
+
+.create-user-form-container input[type="text"],
+.create-user-form-container input[type="password"],
+.create-user-form-container input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.create-user-form-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-user-form-container button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: #ff0000;
+    margin-top: 10px;
+}
+</style>
+
+<!-- page content -->
+<div class="create-user-container">
+    <div class="create-user-container-border">
+        <div class="create-user-header-container">
+            <h2 align="center">Create New User</h2>
+        </div>
+        <div class="create-user-form-container">
+            <form action="{{ url_for('create_user') }}" method="POST" enctype="multipart/form-data">
+                {% if error %}
+                <div class="error-message">{{ error }}</div>
+                <br>
+                {% endif %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <br>
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                <br>
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" required>
+                <br>
+                <br>
+                <button type="submit">Create User</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

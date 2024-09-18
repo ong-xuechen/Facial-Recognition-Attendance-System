@@ -1,0 +1,74 @@
+{% extends "user_base_template.html" %}
+{% block title %}Terms and Conditions{% endblock %}
+{% block content %}
+
+<!-- terms and conditions content -->
+<br/>
+<div class="terms-container">
+    <div class="content-container">
+        <h2 align="center">
+            Terms and Conditions
+            <i class="fa-regular fa-file-audio" style="font-size: 30px;" onclick="speakTerms()"></i> <!-- audio reader icon -->
+        </h2>
+        <div align="left">
+            <!-- Add your terms and conditions content here -->
+            <p>These terms and conditions ("Agreement") govern your use of the face recognition form ("Service").
+            By accessing or using the Service, you agree to be bound by this Agreement.
+            If you do not agree with any part of this Agreement, you must not use the Service.</p>
+
+            <p><b>1. Face Recognition Data</b></p>
+            <p>1.1<br/>This service utilizes facial recognition technology to capture and process facial data provided by users (like you) during the registration process</p>
+            <p>1.2<br/>You agree with the collection, storage, and processing of your facial data by the service for the purpose of identification and attendance tracking</p>
+            <p>1.3<br/>The facial data collected by the service will be handled in accordance with our privacy policy, which is incorporated into this agreement by reference</p>
+
+            <p><b>2. User Obligations</b></p>
+            <p>2.1<br/>You consent to provide accurate, up-to-date, and complete information during the registration process</p>
+            <p>2.2<br/>You are responsible for maintaining the confidentiality of any login credentials or access codes provided to you for using the service</p>
+            <p>2.3<br/>You should not use the service for any unlawful, unauthorized or fraudulent purposes</p>
+
+            <p><b>3. Data Security and Privacy</b></p>
+            <p>3.1<br/>The provider is committed to protecting your privacy and implementing appropriate security measures to safeguard your facial data</p>
+            <p>3.2<br/>The provider will not share your facial data with any third parties, except as required by law or as outlined in the privacy policy</p>
+            <p>3.3<br/>The provider may not guarantee the security of the service or the prevention of unauthorized access to or use of your facial data; you acknowledge and accept these inherent risks</p>
+
+            <p><b>4. Intellectual Property</b></p>
+            <p>4.1<br/>The provider retains all intellectual property rights in the service, which include any algorithms, software, or technologies utilized</p>
+            <p>4.2<br/>You may not copy, modify, distribute, or reverse engineer the service or any associated intellectual property without prior written consent from the provider</p>
+
+            <p><b>5. Limitation of Liability</b></p>
+            <p>5.1<br/>The provider should not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with the use of the service or this agreement</p>
+
+            <p><b>6. Termination</b></p>
+            <p>6.1<br/>The provider reserves the right to suspend or terminate your access to the service at any time, with or without cause</p>
+            <p>6.2<br/>Upon termination, your facial data may be retained by the provider as required by applicable laws or as outlined in the privacy policy</p>
+
+            <p><b>7. Modifications</b></p>
+            <p>7.1<br/>The provider reserves the right to amend or modify this agreement at any time; any such modifications or amendments will be effective immediately upon posting on the service</p>
+            <p>7.2<br/>It is your responsibility to review this agreement periodically; your continued use of the service after any modifications or amendments constitutes your acceptance of the updated agreement</p>
+
+            <!-- Add more terms and conditions content here as needed -->
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<script>
+    var speech = new SpeechSynthesisUtterance();
+    var isPlaying = false;
+
+    function speakTerms() {
+        if (!isPlaying) {
+            speech.text = document.querySelector("div[align='left']").innerText;
+            window.speechSynthesis.speak(speech);
+            isPlaying = true;
+            document.getElementById("audioButton").innerText = "Stop Audio";
+        } else {
+            window.speechSynthesis.cancel();
+            isPlaying = false;
+            document.getElementById("audioButton").innerText = "Play Audio";
+        }
+    }
+</script>
+
+{% endblock %}

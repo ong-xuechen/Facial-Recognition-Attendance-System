@@ -1,0 +1,716 @@
+/* user navbar (base temp) codes */
+.navbar {
+    background-color: #438789;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin-right: 18px;
+    font-size: 20px;
+}
+
+.navbar-nav .nav-link.dropdown-toggle::after {
+    position: relative;
+    top: 2.5px;
+}
+
+.container {
+    background-color: #f6f6f6;
+}
+
+.footer {
+    background-color: #6c757d;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 39px;
+}
+
+.notification-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-icon {
+    position: relative;
+    color: #fff;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.notification-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.notification-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: black;
+    min-width: 240px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    z-index: 1;
+    right: 0;
+    left: auto;
+    max-width: calc(100vw - 20px);
+    overflow-x: auto;
+    text-align: left;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.notification-dropdown.active .notification-dropdown-content {
+    display: block;
+}
+
+.notification-dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-dropdown-content .notification-item {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-dropdown-content .notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-dropdown-content .notification-item .notification-content {
+    font-weight: bold;
+}
+
+.notification-dropdown-content .notification-item .timestamp {
+    font-size: 12px;
+    color: gray;
+}
+
+.notification-dropdown-content .notification-item:hover {
+    background-color: #f1f1f1;
+}
+
+.notification-panel-title {
+    margin: 0;
+    text-align: center;
+    font-size: 23px;
+    padding: 8px 0;
+}
+
+/* Remove additional styles for the notification icon */
+.notification-dropdown button {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+/* Add a media query for small screens */
+@media (max-width: 768px) {
+    /* Adjust the positioning of the notification dropdown for small screens */
+    .notification-dropdown-content {
+        left: 0; /* Remove the left positioning */
+        right: 0; /* Align the dropdown to the right of the screen */
+        max-width: 100%; /* Allow the dropdown to take the full width of the screen */
+    }
+}
+
+/* css styling for user home page */
+.container-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.spacing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 200px; /* Adjust the height as needed */
+}
+
+.spacing-container h1, .spacing-container p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    height: 200px; /* Adjust the height as needed */
+}
+
+.custom-button {
+    /* Button styles remain the same */
+}
+
+.left-icon:before {
+    /* Define the left icon style using CSS content property or add an image URL */
+}
+
+.right-icon:after {
+    /* Define the right icon style using CSS content property or add an image URL */
+}
+
+/* css styling for buttons */
+.custom-button {
+    border-radius: 5px; /* adjust the border of radius */
+    border: none; /* remove border */
+    outline: none; /* remove outline */
+    height: 60px;
+}
+
+/* css styling for attendance records table */
+
+
+/* css styling for registration success page */
+.centered-text-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* check/test this out! */
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+}
+
+.button-container-home {
+    margin-top: 1em;
+}
+
+.rounded-button-home {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #438789, #6c757d);
+    color: #fff;
+    text-decoration: none;
+}
+
+.rounded-button-home:hover {
+    background-image: linear-gradient(to right, #438789, #6c757d);
+    color: #fff;
+}
+
+.envelope-icon {
+    background: linear-gradient(to right, #438789, #6c757d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 5em;
+    margin-bottom: 0.5em;
+}
+
+/* css styling for face registration form */
+.reg-card-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.reg-form-header {
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.reg-form-subtext {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.reg-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.reg-section-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.reg-subheader {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.reg-form-group {
+    margin-bottom: 20px;
+}
+
+.reg-form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.reg-form-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.reg-divider {
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.reg-upload-container {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg-upload-container.highlight {
+    border-color: blue;
+}
+
+.reg-upload-container img {
+    max-width: 100%;
+    max-height: 300px;
+    margin-top: 10px;
+}
+
+.reg-upload-container .message {
+    margin-top: 10px;
+}
+
+.reg-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reg-buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.reg-buttons button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+.dynamic-cancel-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+.reg-buttons button[type="submit"]:hover,
+.dynamic-cancel-button:hover {
+    transform: scale(1.05);
+}
+
+/* Custom validation bubble */
+.reg-validation-bubble {
+    position: absolute;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 1;
+}
+
+/* Highlight upload container on drag over */
+.reg-upload-container.highlight-dragover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* addon icons */
+.reg-form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.reg-form-group input {
+    padding-left: 30px; /* Add padding for the icon */
+}
+
+.reg-form-group .icon {
+    position: absolute;
+    top: 70%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .reg-card-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .reg-form-group input {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .reg-form-group input {
+        width: 90%;
+    }
+}
+
+/* css styling for terms and conditions page */
+.terms-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit; /* Set the container background color */
+}
+
+.content-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 1120px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    height: 400px; /* Specify a height for the container */
+    background-color: #f2f2f2; /* Set the background color for content-container */
+}
+
+form-terms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 20px; /* Add spacing above the form */
+}
+
+form-terms > div-terms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* Add spacing between form elements */
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.proceed-button {
+    margin-top: 10px;
+    border: none;
+}
+
+/* Enlarge the "proceed to registration" button */
+.proceed-button button {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Set the button background color to green */
+    color: #fff; /* Set the text color to white */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* css styling for user guide page */
+.first-container,
+.second-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.section-heading-container {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.section-heading {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.first-container {
+    margin-bottom: 39px; /* to create spacing between the 2 div containers */
+    margin-top: 39px; /* to create spacing between the header text and the first div container */
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* spacing between each row of images */
+}
+
+.image-container img {
+    width: 200px;
+    height: 200px; /* Set equal width and height for all images */
+    object-fit: cover; /* Maintain aspect ratio and fill the container */
+    margin-bottom: 10px;
+}
+
+.image-container p {
+    font-size: 0.9rem;
+    margin: 0;
+    text-align: center;
+}
+
+/* Back button styles */
+.back-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.back-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Scroll-to-top button styles */
+.scroll-to-top {
+    position: fixed;
+    bottom: 45px;
+    right: 20px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+}
+
+.scroll-to-top:hover {
+    opacity: 1;
+}
+
+
+/* Responsive styles */
+@media screen and (min-width: 600px) {
+    .image-container img {
+        width: 48%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .image-container img {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .image-container img {
+        width: 23%;
+    }
+}
+
+/* Other Responsive Styles */
+@media screen and (max-width: 768px) {
+    .section-heading-container {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+    }
+
+    .first-container,
+    .second-container {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .first-container {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .section-heading {
+        font-size: 1.2rem;
+    }
+
+    .image-container img {
+        width: 100%;
+    }
+}
+
+/* user attendance css */
+.user-attendance-h2 {
+    text-align: center;
+    color: #333;
+    font-size: 30px;
+}
+
+.user-attendance-p {
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+}
+
+ .table-user-attendance {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border: none; /* Remove table borders */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* Prevent line breaks in table cells */
+    overflow-x: auto; /* Add horizontal scrollbar */
+}
+
+.table-user-attendance th, td {
+    border: none; /* Remove cell borders */
+    padding: 12px;
+    font-weight: normal;
+    text-align: left;
+    width: 33.33%;
+}
+
+.table-user-attendance th {
+    background-color: #f2f2f2;
+    color: #666;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.table-user-attendance tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.user-attendance-p p {
+    text-align: center !important;
+}
+
+.card-pagination-container .page-item.active .page-link {
+    background-color: #6495ED;
+    border: 1px solid #6495ED;
+}
+
+.button {
+appearance: none;
+background-color: #2ea44f;
+border: 1px solid rgba(27, 31, 35, .15);
+border-radius: 6px;
+box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+display: inline-block;
+font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+font-size: 14px;
+font-weight: 600;
+line-height: 20px;
+padding: 6px 16px;
+position: relative;
+text-align: center;
+text-decoration: none;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+vertical-align: middle;
+white-space: nowrap;
+}
+
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+box-shadow: none;
+outline: none;
+}
+
+.button-3:hover {
+background-color: #2c974b;
+}
+
+.button-3:focus {
+box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+outline: none;
+}
+
+.button-3:disabled {
+background-color: #94d3a2;
+border-color: rgba(27, 31, 35, .1);
+color: rgba(255, 255, 255, .8);
+cursor: default;
+}
+
+.button-3:active {
+background-color: #298e46;
+box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.attendance-search-form {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+/* Adjust the position of the input and buttons */
+.attendance-search-form .search-input {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.attendance-search-form .search-buttons {
+    display: inline-block;
+    vertical-align: middle;
+}

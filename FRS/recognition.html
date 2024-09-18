@@ -1,0 +1,44 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Facial Recognition Attendance System{% endblock %}
+{% block content %}
+<!-- page content -->
+<div class="container-home">
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <h1>Facial Recognition Attendance System</h1>
+            <br/>
+            <p>Please select the button underneath to proceed with the facial recognition</p>
+            <h6 style="color:red;">Press the button ONCE only!</h6>
+            <div class="button-group">
+                <button class="custom-button" id="startRecognition">
+                    <i class="left-icon">
+                        <img src="{{ url_for('static', filename='img/face-scan.gif') }}" alt="Animated GIF" style="max-width: 50px; background-color: inherit;">
+                    </i>
+                    &nbsp;
+                    Facial Recognition Attendance
+                    &nbsp;
+                    <i class="right-icon">
+                        <img src="{{ url_for('static', filename='img/right-arrow.gif') }}" alt="Animated GIF" style="max-width: 50px; background-color: inherit;">
+                    </i>
+                </button>
+                <script>
+                    document.getElementById('startRecognition').addEventListener('click', function() {
+                        // Send a request to start the camera loop
+                        fetch('/start_recognition')
+                            .then(response => {
+                                if (response.ok) {
+                                    console.log('Recognition started');
+                                } else {
+                                    console.error('Failed to start recognition');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Edit Modules{% endblock %}
+{% block content %}
+<div class="center-container-edit">
+    <div class="container-edit-user">
+        <div class="header-container-edit">
+            <h1>Edit Modules</h1>
+        </div>
+        <div class="body-container-edit">
+            <form action="{{ url_for('edit_modules', module_id=module.id) }}" method="post">
+                <div class="form-group">
+                    <label for="module_name">Module Name:</label>
+                    <input type="text" id="module_name" name="module_name" class="form-control" value="{{ module.module_name }}" required>
+                </div>
+                <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="time" id="start_time" name="start_time" class="form-control" value="{{ module.start_time }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="end_time">End Time:</label>
+                    <input type="time" id="end_time" name="end_time" class="form-control" value="{{ module.end_time }}" required>
+                </div>
+                <div class="btn-container-update">
+                    <input type="submit" class="btn btn-primary" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

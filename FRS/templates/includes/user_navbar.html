@@ -1,0 +1,50 @@
+<!-- responsive top navigation -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="{{ url_for('attendance') }}"><img src="{{ url_for('static', filename='img/face_id.png') }}" width="30" height="30" alt="logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('attendance') }}">Attendance Records</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('user_guide') }}">User Guide</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('user_terms') }}">User Terms</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <!-- add the notification icon -->
+                    <div class="notification-dropdown">
+                        <button class="notification-icon" style="margin-right: 5px;">🔔</button>
+                        <div class="notification-count" id="notification-count"></div>
+                        <div class="notification-dropdown-content" id="notification-dropdown-content">
+                            <h2 class="notification-panel-title" align="center" style="font-size: 20px;">Notifications</h2>
+                            <ul id="dropdown-broadcast-list"></ul>
+                        </div>
+                    </div>
+                    <img src="{{ url_for('static', filename='img/user.png') }}" width="30" height="30" alt="User Profile Icon" style="margin-right: 5px;">
+                    {% if current_user.is_authenticated %}
+                        {{ current_user.username }}
+                    {% else %}
+                        Guest User
+                    {% endif %}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    {% if current_user.is_authenticated %}
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a> <!-- return to login page -->
+                    {% else %}
+                        <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

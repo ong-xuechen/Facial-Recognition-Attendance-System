@@ -1,0 +1,39 @@
+<!-- admin navbar (top and side navigation) -->
+<div class="navbar">
+    <div class="user-profile">
+        <div class="user-info">
+            <div class="user-name">
+                {% if current_user.is_authenticated %}
+                    {{ current_user.username }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ url_for('static', filename='img/user.png') }}" width="30" height="30" alt="User Profile Icon">
+            </button>
+            <!-- dropdown menu items -->
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('login') }}">Logout</a> <!-- return to login page -->
+            </div>
+        </div>
+     </div>
+</div>
+
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar active">
+        <div class="sidebar-header">
+            <h3><img src="{{ url_for('static', filename='img/face_id.png') }}" width="30" height="30" alt="logo"></h3> <!-- logo -->
+        </div>
+
+        <ul class="list-unstyled components">
+            <li><a href="{{ url_for('dashboard') }}"><i class="bi bi-layout-text-window-reverse"></i><span class="sidebar-label">Dashboard</span></a></li>
+            <li><a href="{{ url_for('manage_users') }}"><i class="bi bi-people"></i><span class="sidebar-label">Manage Users</span></a></li>
+            <li><a href="{{ url_for('attendance') }}"><i class="bi bi-calendar4-week"></i><span class="sidebar-label">Attendance</span></a></li>
+            <li><a href="{{ url_for('recognition') }}"><i class="bi bi-camera-reels"></i><span class="sidebar-label">Recognition</span></a></li>
+            <li><a href="{{ url_for('view_modules') }}"><i class="bi bi-book"></i><span class="sidebar-label">Modules</span></a></li>
+            <li><a href="{{ url_for('broadcast') }}"><i class="bi bi-camera-reels"></i><span class="sidebar-label">Broadcast</span></a></li>
+            <li><a href="{{ url_for('login') }}"><i class="bi bi-box-arrow-right"></i><span class="sidebar-label">Logout</span></a></li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,168 @@
+{% extends "user_base_template.html" %}
+{% block title %}Facial Recognition Registration Form{% endblock %}
+{% block content %}
+
+<!-- guiding contents -->
+<br/>
+<h1 align="center">User Guide</h1>
+
+<div class="first-container">
+    <div class="section-heading-container">
+        <h2 class="section-heading">Photo Submission Requirements</h2>
+    </div>
+    <!-- submit photo criteria -->
+    <h3 style="margin-top: 18px;">Photo Submission Requirements</h3>
+    <p>To complete your face registration, you will need to provide a recent photo of yourself for identification and facial recognition purposes.
+        Do get yourself familiarized with the photo submission requirements to ensure that your photo(s) meet the necessary criteria.
+        Some common requirements may include image formats (for example, jpg, jpeg, png), file size limitations, aspect ratio, background color, resolution,
+        and any specific facial orientation or expression guidelines.</p>
+    <p>Photo submission options may include the following:</p>
+    <ul>
+        <li>Uploading photo(s) from computer</li>
+        <li>Uploading photo(s) from mobile device</li>
+        <li>Submitting print photo(s)</li>
+    </ul>
+    <p>Kindly be reminded to upload your face photo(s) at the "Photo Upload" section before proceeding to submit them for facial recognition processing.</p>
+
+    <!-- about photos -->
+    <h3>About Photos</h3>
+    <p>Below are some important guidelines to remember when capturing your face:</p>
+    <ul>
+        <li>Ensure that your photo(s) display a clear image of <b>ONLY</b> you against a plain background; and it should not be blurry, grainy or fuzzy, etc.</li>
+        <li>Ensure that your photo(s) is/are a full face-and-shoulders shot, squarely facing the camera</li>
+        <li>Please use a portrait <b>NOT</b> landscape photo(s) that is/are correctly oriented</li>
+        <li>You are required to face the camera when capturing your face images</li>
+        <li>Avoid wearing dark sunglasses that will cover your eyes</li>
+        <li>Please do not include any enhancements to your photo(s), e.g., no lenses, filters, text, emoji, stickers, etc.</li>
+        <li>For individuals who are wearing a head covering daily for religious reasons, adjust the camera to provide a full-face view</li>
+    </ul>
+
+    <!-- example of acceptable photos -->
+    <div class="photos">
+        <h4>Examples of Acceptable Photos</h4>
+        <div class="image-container">
+            <div>
+                <img src="{{ url_for('static', filename='img/female_front_view_acceptable.jpg') }}" alt="Acceptable Photo 1" style="height: 250px; width: 300px;">
+                <p>Female portrait with plain background</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/male_front_view_acceptable.jpg') }}" alt="Acceptable Photo 2" style="height: 250px; width: 260px;">
+                <p>Male portrait with plain background</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/left_view_acceptable.jpg') }}" alt="Acceptable Photo 3" style="height: 250px; width: 300px;">
+                <p>Left portrait with plain background</p>
+            </div>
+        </div>
+        <div class="image-container">
+            <div>
+                <img src="{{ url_for('static', filename='img/right_view_acceptable.jpg') }}" alt="Acceptable Photo 4" style="height: 250px; width: 300px;">
+                <p>Right portrait with plain background</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/lookup_view.jpg') }}" alt="Acceptable Photo 5" style="height: 250px; width: 300px;">
+                <p>Upward face portrait with plain background</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/lookdown_view.jpg') }}" style="height: 250px; width: 300px;">
+                <p>Downward face portrait with plain background</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- example of unacceptable photos -->
+    <div class="photos">
+        <h4>Examples of Unacceptable Photos</h4>
+        <div class="image-container">
+            <div>
+                <img src="{{ url_for('static', filename='img/dark_face_portrait.jpg') }}" alt="Unacceptable Photo 1" style="height: 250px; width: 285px;">
+                <p>Face image is too dark</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/bright_face.jpeg') }}" alt="Unacceptable Photo 2" style="height: 250px; width: 285px;">
+                <p>Face image is too light</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/non-plain-bg.jpg') }}" alt="Unacceptable Photo 3" style="height: 250px; width: 285px;">
+                <p>Not plain background</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/small_face.jpg') }}" alt="Unacceptable Photo 4" style="height: 250px; width: 285px;">
+                <p>Face image is too small</p>
+            </div>
+        </div>
+        <div class="image-container">
+            <div>
+                <img src="{{ url_for('static', filename='img/blurry_face.jpg') }}" alt="Unacceptable Photo 5" style="height: 250px; width: 285px;">
+                <p>Face image is too blurry</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/covered_face.jpg') }}" alt="Unacceptable Photo 6" style="height: 250px; width: 285px;">
+                <p>Face covered by objects</p>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img/close_face.jfif') }}" alt="Unacceptable Photo 7" style="height: 250px; width: 285px;">
+                <p>Face image is too close</p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Important guidelines to remember</h3>
+    <ul>
+        <li>Please ensure that your facial features and hair are visible; photos with excessive lighting, shadow, or busy backgrounds are <b>NOT</b> acceptable for use</li>
+        <li>For individuals who are wearing a head covering daily for religious reasons, please adjust the camera to provide a full-face view</li>
+        <li>Kindly be reminded not to scan your driver's license or school ID photo as the scanned images will not be of high enough quality to meet the
+            system's requirements for an unacceptable photo</li>
+        <li>Please do not submit a photo of a photo</li>
+    </ul>
+</div>
+
+<div class="second-container">
+    <div class="section-heading-container">
+        <h2 class="section-heading">User Guide on Face Registration</h2>
+    </div>
+    <!-- start content here -->
+    <h3 style="margin-top: 18px;">Face Registration Form</h3>
+    <p>Upon login, navigate to the Face registration form page and you will noticed that there are the "User Information" and "Photo Upload" sections.
+
+
+    <h3>Uploading Photos</h3>
+    <h4>Formatting and Sizing</h4>
+    <ul>
+        <li>You may choose to upload a jpg, jpeg, png, jfif, bmp or other image file, whichever is preferred</li>
+        <li>Note that the maximum file size is 2GB</li>
+        <li>Should you plan to upload a scanned photo of your face portrait, please ensure that the resulting file is generated with 2 inch by 2 inch dimensions or larger</li>
+        <li>The image file should be at least 650 by 500 pixels</li>
+        <li>When scanning any photos, edit and crop the image to show <b>ONLY</b> your head and shoulders before uploading it</li>
+    </ul>
+
+    <h4>Uploading from computer</h4>
+    <p>You will be given a prompt to upload your image when registering online.
+        If you register using your personal mobile device, you may be able to directly upload a saved photo
+        or take a photo directly from your device.</p>
+
+    <h4>Upload photos</h4>
+    <p>At the registration form page, click on "Upload files" displayed at the "Photo Upload" container.
+        The file explorer or a dialogue box will appear, allowing you to navigate to the location of your prepared image file.
+        Select the image file and click on the "Open" button to initiate the file transfer.
+        To remove the photos, simply click on the "Cancel" button displayed at the bottom of registration form.</p>
+
+    <h3>Review and Confirmation</h3>
+    <p>After the photo file upload is completed, the "Photo Upload" section will display an image preview of the uploaded image file(s).
+        Please carefully review the image preview while ensuring that your face is clearly visible, meets the specified requirements,
+        and there should not be any distractions or obstructions in your photos. Once you are satisfied with the uploaded photos,
+        click on the "Submit" button to proceed. Otherwise, click on the "Cancel" button to restart the registration process.</p>
+
+    <h3>Confirmation and Completion</h3>
+    <p>Upon successful submission, you will receive a confirmation message or notification indicating that your face registration has been successful.
+        If required, you may be prompted to perform additional steps or provide further information. Please follw any remaining instructions provided
+        by the registration form to finalize the registration process.</p>
+    <p>Congratulations! You have successfully completed the face registration form and your face photos will be processed by the administrators
+        of the organization or service that you are registered with.</p>
+</div>
+
+<!-- scroll-to-top button -->
+<button class="scroll-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+<br/>
+
+{% endblock %}

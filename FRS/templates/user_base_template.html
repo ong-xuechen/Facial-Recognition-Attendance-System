@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- user navbar bootstrap cdn link (updated) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- user guide back button and scroll-to-top icons (bootstrap 6 cdn link) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="" integrity="" crossorigin="">
+
+    <!-- own css stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_base_template.css')}}">
+    {% block head %}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+<body>
+    {% block navbar %}
+        {% include 'includes/user_navbar.html' %}
+    {% endblock %}
+
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block footer %}
+        {% include 'includes/user_footer.html' %}
+    {% endblock %}
+
+    {% block scripts %}
+    <!-- jquery links updated -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="" integrity="" crossorigin=""></script>
+
+    <!-- own javascript -->
+    <script src="{{url_for('static', filename='js/user_base_template.js')}}"></script>
+
+    <!-- js script for notification broadcast handler -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+    <script type="text/javascript">
+    const socket = io.connect('http://localhost:5000');
+    const dropdownList = document.getElementById('dropdown-broadcast-list');
+    const notificationCount = document.getElementById('notification-count');
+    let count = 0;
+    let isVisible = false;
+    const notificationDropdown = document.querySelector('.notification-dropdown');
+
+    // Function to create the notification item with desired formatting
+    function createNotificationItem(message) {
+        const li = document.createElement('li');
+        li.classList.add('notification-item');
+
+        const notificationContent = document.createElement('div');
+        notificationContent.classList.add('notification-content');
+
+        const { title, content, sender, timestamp } = message;
+
+        // Format the timestamp using JavaScript Date object
+        const formattedTimestamp = new Date(timestamp).toLocaleString();
+
+        // Create the message title element
+        const titleContent = document.createElement('div');
+        titleContent.textContent = title;
+        titleContent.style.fontWeight = 'bold'; // Set the title font weight to bold
+        titleContent.style.fontSize = '16px'; // Set the title font size
+        titleContent.style.fontWeight = 'normal'
+
+        // Create the message content element
+        const messageContent = document.createElement('div');
+        messageContent.textContent = content;
+        messageContent.style.fontSize = '14px'; // Set the message content font size
+        messageContent.style.fontWeight = 'normal'
+
+        // Create the sender information element
+        const senderInfo = document.createElement('div');
+        senderInfo.textContent = `Sent by ${sender.name}, ${sender.role}`;
+        senderInfo.style.fontSize = '12px'; // Set the sender information font size
+        senderInfo.style.fontWeight = 'normal'
+
+        // Create the timestamp information element
+        const timestampInfo = document.createElement('div');
+        timestampInfo.textContent = formattedTimestamp;
+        timestampInfo.style.fontSize = '12px'; // Set the timestamp font size
+        timestampInfo.style.fontWeight = 'normal';
+
+        // Append the elements to the notification content div
+        notificationContent.appendChild(titleContent);
+        notificationContent.appendChild(messageContent);
+        notificationContent.appendChild(document.createElement('br')); // Add a line break for spacing
+        notificationContent.appendChild(senderInfo);
+        notificationContent.appendChild(timestampInfo);
+
+        li.appendChild(notificationContent);
+        return li;
+    }
+
+    // Function to increment the notification count
+    function incrementNotificationCount() {
+    count++;
+    notificationCount.textContent = count;
+    if (!isVisible) {
+      isVisible = true;
+      notificationCount.style.display = 'flex';
+    }
+    }
+
+    // Function to clear the notification count
+    function clearNotificationCount() {
+    count = 0;
+    isVisible = false;
+    notificationCount.textContent = '0';
+    notificationCount.style.display = 'none';
+    }
+
+    // Event listener for the 'new_broadcast' event
+    socket.on('new_broadcast', (data) => {
+        const message = data.message;
+        const li = createNotificationItem(message);
+        dropdownList.appendChild(li);
+        incrementNotificationCount();
+    });
+
+    const notificationIcon = document.querySelector('.notification-icon');
+    notificationIcon.addEventListener('click', function (event) {
+        event.stopPropagation(); // Stop event propagation to parent elements
+        notificationDropdown.classList.toggle('active');
+        clearNotificationCount();
+    });
+
+    // Event listener for clicks on the document
+    document.addEventListener('click', function (event) {
+    const targetElement = event.target;
+    if (
+      !targetElement.closest('.notification-dropdown') &&
+      !targetElement.classList.contains('notification-icon')
+    ) {
+      // Click is outside the notification dropdown or icon, hide the dropdown
+      notificationDropdown.classList.remove('active');
+      clearNotificationCount();
+    }
+    });
+
+    // Event listener for the 'connect' event
+    socket.on('connect', () => {
+        // Request stored broadcast messages from the server
+        socket.emit('request_broadcast_messages');
+    });
+    </script>
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Facial Recognition Attendance System{% endblock %}
+{% block content %}
+
+<!-- css styling -->
+<style>
+    .dashboard-card {
+        border-radius: 10px;
+        background-color: #f1f1f1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        width: calc(100% - 66px);
+        margin: 0 auto;
+        padding: 20px;
+        margin-top: 10px;
+        margin-left: 66px;
+    }
+
+    .dashboard-header {
+        background-color: #6495ED;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-box-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-box {
+        flex-basis: calc(25% - 10px); /* Adjusted flex-basis to account for margin-right */
+        height: 150px;
+        background-color: #e0e0e0;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .square-box-container-dash {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .square-box-dash {
+        flex-basis: calc(50% - 10px); /* Adjusted flex-basis to account for margin-right */
+        height: 300px;
+        background-color: #e0e0e0;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    /* Media queries for responsiveness */
+    @media only screen and (max-width: 768px) {
+        .dashboard-box {
+            flex-basis: calc(50% - 10px); /* Adjusted flex-basis for smaller screens */
+        }
+
+        .square-box-dash {
+            flex-basis: calc(100% - 10px); /* Adjusted flex-basis for smaller screens */
+        }
+    }
+</style>
+
+<!-- dashboard content -->
+<div class="dashboard-card">
+    <div class="dashboard-header">
+        <h2>Attendance Dashboard</h2>
+    </div>
+    <div class="dashboard-box-container">
+        <div class="dashboard-box"></div>
+        <div class="dashboard-box"></div>
+        <div class="dashboard-box"></div>
+        <div class="dashboard-box"></div>
+    </div>
+    <div class="square-box-container-dash">
+        <div class="square-box-dash"></div>
+        <div class="square-box-dash"></div>
+    </div>
+</div>
+
+{% endblock %}

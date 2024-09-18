@@ -1,0 +1,589 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Analytics Report{% endblock %}
+{% block content %}
+
+<!-- report content -->
+<div class="report-main-body">
+
+    <h2 class="report-header">Attendance Dashboard</h2>
+
+    <!-- Add visual cards above the table -->
+    <div class="report-cards-container">
+        <div class="report-card">
+            <h2>Total Count</h2>
+            <p>{{ data_length }}</p>
+        </div>
+        <div class="report-card">
+            <h2>User Count</h2>
+            <p>{{ user_roles }}</p>
+        </div>
+        <div class="report-card">
+            <h2>Admin Count</h2>
+            <p>{{ admin_roles }}</p>
+        </div>
+    </div>
+
+    <!-- visual cards new addons -->
+    <div class="report-cards-container" style="margin-top: -20px;">
+        <div class="report-card">
+            <h2>Total Login Count</h2>
+            <p>{{ total_login_frequency }}</p>
+        </div>
+        <div class="report-card">
+            <h2>Count of Unique Modules</h2>
+            <p>{{ num_unique_modules }}</p>
+        </div>
+        <div class="report-card">
+            <h2>Total Last Marked Time</h2>
+            <p>{{ total_last_marked_time }}</p>
+        </div>
+    </div>
+
+    <!-- line and bar charts -->
+    <div class="report-charts-container">
+        <!-- bar chart -->
+        <div class="report-bar-chart">
+            <h2>Distribution of Users and Admins</h2>
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <!-- line chart -->
+        <div class="report-line-chart" style="position: relative;">
+            <h2>Users' Daily Timestamp</h2>
+            <canvas id="lineChart"></canvas>
+
+            <!-- add pagination buttons to scroll through the line chart -->
+            <div class="all-users-pagination">
+                <button id="all-users-prev-btn">Previous</button>
+                <button id="all-users-next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- new line and bar charts addon -->
+    <div class="report-charts-container">
+        <!-- bar chart -->
+        <div class="report-bar-chart">
+            <h2>Distribution of Unique Modules</h2>
+            <canvas id="barChart1"></canvas>
+        </div>
+
+        <!-- line chart -->
+        <div class="report-line-chart" style="position: relative;">
+            <h2>Users' Average Daily Login Frequency</h2>
+            <canvas id="lineChart1"></canvas>
+
+            <!-- add pagination buttons to scroll through the line chart -->
+            <div class="all-users-pagination">
+                <button id="all-users-prev-btn1">Previous</button>
+                <button id="all-users-next-btn1">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enclose both search forms in the same container -->
+    <div class="table-title-and-search-container">
+        <div class="report-table-title">Attendance Details</div>
+        <div class="search-forms-container">
+            <form class="report-search-form" action="/dashboard" method="GET">
+                <input class="report-search-input" type="text" name="search_username" placeholder="Search by Username" value="{{ search_username }}">
+                <button class="report-search-button" type="submit">Search</button>
+            </form>
+            <form class="report-search-form" action="/dashboard" method="GET">
+                <input class="report-search-input" type="text" name="search_module" placeholder="Search by Module" value="{{ search_module }}">
+                <button class="report-search-button" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enclose the table visualization in a separate div container with borders -->
+    <div class="table-visualization-container">
+        <table class="report-table">
+        {% if data %}
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Timestamp</th>
+                <th>Last Login</th>
+                <th>Module</th>
+                <th>Last Marked Time</th>
+                <th>Image</th>
+            </tr>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.timestamp }}</td>
+                    <td>{{ item.last_login }}</td>
+                    <td>{{ item.module }}</td>
+                    <td>{{ item.last_marked_time }}</td>
+                    <td><img src="data:image/png;base64,{{ item.image_data }}" alt="Image" /></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>Data not found!</p>
+        {% endif %}
+    </div>
+
+    <!-- include pagination links -->
+    <div class="manage-pagination-container" style="margin-top: 20px;">
+        <ul class="pagination pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="?page=1" style="color: ">&laquo; Previous</a></li>
+            {% for page_num in range(1, total_pages + 1) %}
+                <li class="page-item {% if page_num == page %}active{% endif %}" style="z-index: 0; background-color: #6495ED; color: white;">
+                    <a class="page-link" href="?page={{ page_num }}{% if search_username %}&search_username={{ search_username }}{% endif %}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">Next &raquo;</a></li>
+        </ul>
+    </div>
+
+    {% if search_username %}
+        <!-- selected user filter -->
+        <div class="selected-user-container" style="text-align: center; margin-bottom: 20px;">
+            <h2>Selected user: {{ search_username }}</h2>
+        </div>
+
+        <!-- include 2 new visual cards (calendar filter, timestamp display) -->
+        <div class="user-cards-container">
+            <div class="calendar-card">
+                <h2>Calendar Filter</h2>
+                <input type="date" id="calendarInput">
+                <div id="calendarFilter"></div>
+            </div>
+            <!-- timestamp card -->
+            <div class="timestamp-card">
+                <h2>Timestamp Timing</h2>
+                <p id="selected-date">Selected Date: <span>n/a</span></p>
+                <p id="selected-timestamp">Timestamp Timing: <span>n/a</span></p>
+            </div>
+        </div>
+
+    <!-- line chart displaying individual user's daily timestamp -->
+    <div class="user-line-chart">
+        <h2>{{ search_username }}'s Daily Timestamp</h2>
+        <div style="position: relative;">
+            <canvas id="sampleLineChart" style="background-color: #f2f2f2;"></canvas>
+
+            <!-- add pagination buttons to scroll through the line chart -->
+            <div class="individuals-pagination">
+                <button id="individuals-prev-btn">Previous</button>
+                <button id="individuals-next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- bar chart showing individual user's daily attendance rate per module -->
+    <div class="user-bar-chart">
+        <h2>{{ search_username }}'s Daily Marked Time Per Module</h2>
+        <canvas id="barChart2"></canvas>
+    </div>
+    {% endif %}
+</div>
+<br/>
+
+<!-- javascript for line chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const usersData = [{% for date, count in username_counts.items() %}{{ count }}, {% endfor %}];
+    const individualsData = [{% for date, count in timestamp_counts.items() %}{{ count }}, {% endfor %}];
+    const allUsersData = [{% for date, count in last_login_counts_per_day.items() %}{{ count }}, {% endfor %}];
+
+    const usersDataPointsPerPage = 5;
+    const individualsDataPointsPerPage = 10;
+    const allUsersDataPointsPerPage = 5
+
+    let usersCurrentPage = 1;
+    let individualsCurrentPage = 1;
+    let allUsersCurrentPage = 1;
+
+    // Function to display a subset of data points based on the page number
+    function getSubsetData(data, pageNumber, dataPointsPerPage) {
+        const startIndex = (pageNumber - 1) * dataPointsPerPage;
+        return data.slice(startIndex, startIndex + dataPointsPerPage);
+    }
+
+    // Function to update the line chart with the new subset of data and labels
+    function updateLineChart(chart, data, labels, pageNumber, dataPointsPerPage) {
+        const subsetData = getSubsetData(data, pageNumber, dataPointsPerPage);
+        chart.data.datasets[0].data = subsetData;
+        chart.data.labels = labels.slice((pageNumber - 1) * dataPointsPerPage, pageNumber * dataPointsPerPage);
+        chart.update();
+    }
+
+    // Function to handle navigation to the previous page for the first chart
+    function goToPreviousPage() {
+        if (usersCurrentPage > 1) {
+            usersCurrentPage--;
+            updateLineChart(lineChart, usersData, [{% for date, count in timestamp_counts.items() %}{{ count }}, {% endfor %}], usersCurrentPage, usersDataPointsPerPage);
+        }
+    }
+
+    // Function to handle navigation to the next page for the first chart
+    function goToNextPage() {
+        const totalDataPoints = usersData.length;
+        const totalPages = Math.ceil(totalDataPoints / usersDataPointsPerPage);
+        if (usersCurrentPage < totalPages) {
+            usersCurrentPage++;
+            updateLineChart(lineChart, usersData, [{% for date, count in timestamp_counts.items() %}{{ count }}, {% endfor %}], usersCurrentPage, usersDataPointsPerPage);
+        }
+    }
+
+    // Function to handle navigation to the previous page for the second chart
+    function goToPreviousPage2() {
+        if (individualsCurrentPage > 1) {
+            individualsCurrentPage--;
+            updateLineChart(lineChart2, individualsData, [{% for date, count in username_counts.items() %}"{{ date }}", {% endfor %}], individualsCurrentPage, individualsDataPointsPerPage);
+        }
+    }
+
+    // Function to handle navigation to the next page for the second chart
+    function goToNextPage2() {
+        const totalDataPoints = individualsData.length;
+        const totalPages = Math.ceil(totalDataPoints / individualsDataPointsPerPage);
+        if (individualsCurrentPage < totalPages) {
+            individualsCurrentPage++;
+            updateLineChart(lineChart2, individualsData, [{% for date, count in username_counts.items() %}"{{ date }}", {% endfor %}], individualsCurrentPage, individualsDataPointsPerPage);
+        }
+    }
+
+    // Function to handle navigation to the previous page for the third line chart
+    function goToPreviousPage3() {
+        if (allUsersCurrentPage > 1) {
+            allUsersCurrentPage--;
+            updateLineChart(lineChart1, allUsersData, [{% for date, count in last_login_counts_per_day.items() %}{{ count }}, {% endfor %}], allUsersCurrentPage, allUsersDataPointsPerPage);
+        }
+    }
+
+    // Function to handle navigation to the next page for the third line chart
+    function goToNextPage3() {
+        const totalDataPoints = usersData.length;
+        const totalPages = Math.ceil(totalDataPoints / usersDataPointsPerPage);
+        if (allUsersCurrentPage < totalPages) {
+            allUsersCurrentPage++;
+            updateLineChart(lineChart1, allUsersData, [{% for date, count in last_login_counts_per_day.items() %}{{ count }}, {% endfor %}], allUsersCurrentPage, allUsersDataPointsPerPage);
+        }
+    }
+
+    const lineChartData = {
+        labels: [{% for date, count in timestamp_counts.items() %}"{{ date }}", {% endfor %}],
+        datasets: [{
+            label: "Users Daily Timestamp",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 2,
+            fill: false,
+            data: [{% for date, count in timestamp_counts.items() %}{{ count }}, {% endfor %}], // Use the count values directly from Flask
+        }]
+    };
+
+    // create users daily timestamp line chart
+    const lineChartContext = document.getElementById("lineChart").getContext("2d");
+    new Chart(lineChartContext, {
+        type: "line",
+        data: lineChartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
+
+    // average daily login frequency (all users), new addon
+    // create line chart for last login counts per day
+    const lastLoginChartData = {
+        labels: [{% for date, count in last_login_counts_per_day.items() %}"{{ date }}", {% endfor %}],
+        datasets: [{
+            label: "Last Login Counts per Day",
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 2,
+            fill: false,
+            data: [{% for date, count in last_login_counts_per_day.items() %}{{ count }}, {% endfor %}], // Use the count values directly from Flask
+        }]
+    };
+
+    // Create the last login counts per day line chart
+    const lastLoginChartContext = document.getElementById("lineChart1").getContext("2d");
+    new Chart(lastLoginChartContext, {
+        type: "line",
+        data: lastLoginChartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // new line chart
+    // sample data for the new line chart
+    const sampleLineChartData = {
+        labels: [{% for date, count in username_counts.items() %}"{{ date }}", {% endfor %}],
+        datasets: [{
+            label: "{{ search_username }}'s daily timestamp",
+            borderColor: "rgba(255, 159, 64, 1)",
+            borderWidth: 2,
+            fill: false,
+            data: [{% for date, count in username_counts.items() %}{{ count }}, {% endfor %}],
+        }]
+    };
+
+    // create new line chart
+    const sampleLineChartContext = document.getElementById("sampleLineChart").getContext("2d");
+    new Chart(sampleLineChartContext, {
+        type: "line",
+        data: sampleLineChartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    // Attach event listeners to the buttons for the first chart after the DOM has loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('all-users-prev-btn').addEventListener('click', goToPreviousPage);
+        document.getElementById('all-users-next-btn').addEventListener('click', goToNextPage);
+    });
+
+    // Attach event listeners to the buttons for the second chart after the DOM has loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('individuals-prev-btn').addEventListener('click', goToPreviousPage2);
+        document.getElementById('individuals-next-btn').addEventListener('click', goToNextPage2);
+    });
+
+    // Attach event listeners to the buttons for the additional line chart after the DOM has loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('all-users-prev-btn1').addEventListener('click', goToPreviousPage3);
+        document.getElementById('all-users-prev-btn1').addEventListener('click', goToNextPage3);
+    });
+
+</script>
+
+<script>
+// bar chart
+const barChartData = {
+    labels: ["Roles"],
+    datasets: [{
+        label: "User", // Label for the first data point (User bar)
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+        data: [{{ user_roles }} ], // Use the value directly from Flask, and add a 0 for Admin (no value)
+    }, {
+        label: "Admin", // Label for the second data point (Admin bar)
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        data: [ {{ admin_roles }}], // Add a 0 for User (no value), and use the value directly from Flask for Admin
+    }]
+};
+
+// Create the bar chart
+const barChartContext = document.getElementById("barChart").getContext("2d");
+new Chart(barChartContext, {
+    type: "bar",
+    data: barChartData,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+// new bar chart, unique module distribution
+// list of unique module names and their respective counts from Flask
+const uniqueModuleData = [
+    {% for module, count in unique_modules_data %}
+        {
+            module: "{{ module }}",
+            count: {{ count }}
+        },
+    {% endfor %}
+];
+
+function generateRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Generate random colors for each module
+const barColors = uniqueModuleData.map(() => generateRandomColor());
+
+// Extract unique module names and their respective counts
+const uniqueModuleNames = uniqueModuleData.map(item => item.module);
+
+const datasets = uniqueModuleData.map((item, index) => {
+    const color = generateRandomColor(0.2); // Specify the alpha value for the color
+    return {
+        label: item.module,  // Use the module name as the dataset label
+        backgroundColor: color,
+        borderColor: color.replace('0.2', '1'),  // Use the same color with alpha 1 for the border
+        borderWidth: 1,
+        data: [item.count],  // Use an array with the count value
+    };
+});
+
+function generateRandomColor(alpha) {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${alpha})`;
+}
+
+const barChartData1 = {
+    labels: ["Number of Unique Modules"],
+    datasets: datasets,  // Use the array of dataset objects
+};
+
+// Create the unique modules distribution bar chart
+const barChartContext1 = document.getElementById("barChart1").getContext("2d");
+new Chart(barChartContext1, {
+    type: "bar",
+    data: barChartData1,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+// new bar chart, hidden/filtered by searched users
+// List of marked time percentages for each user and module combination from Flask
+const markedTimePercentagesData = [
+    {% for username, percentages in marked_time_percentages.items() %}
+        {
+            username: "{{ username }}",
+            percentages: [
+                {% for module, percentage in percentages.items() %}
+                    {
+                        module: "{{ module }}",
+                        percentage: {{ percentage }}
+                    },
+                {% endfor %}
+            ]
+        },
+    {% endfor %}
+];
+
+function generateRandomColor(alpha) {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${alpha})`;
+}
+
+const datasets2 = [];
+
+markedTimePercentagesData.forEach(item => {
+    item.percentages.forEach(percentageItem => {
+        const color = generateRandomColor(0.7); // Specify the alpha value for the color
+        datasets2.push({
+            label: `${item.username} - ${percentageItem.module}`,
+            backgroundColor: color,
+            borderColor: color.replace('0.7', '1'),  // Use the same color with alpha 1 for the border
+            borderWidth: 1,
+            data: [percentageItem.percentage],  // Use an array with the percentage value
+        });
+    });
+});
+
+const barChartData2 = {
+    labels: markedTimePercentagesData.flatMap(item => item.percentages.map(p => `${item.username} - ${p.module}`)),
+    datasets: datasets2,
+};
+
+// Create the marked time percentage bar chart
+const barChartContext2 = document.getElementById("barChart2").getContext("2d");
+new Chart(barChartContext2, {
+    type: "bar",
+    data: barChartData2,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,  // Set maximum scale to 100%
+            }
+        }
+    }
+});
+
+
+// Function to format the date in "dd month yyyy" format
+function formatDate(selectedDate) {
+    const day = selectedDate.getDate();
+    const monthIndex = selectedDate.getMonth();
+    const year = selectedDate.getFullYear();
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return `${day} ${monthNames[monthIndex]} ${year}`;
+}
+
+// Function to format the time in 12-hour clock format
+function formatTime(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const period = hours >= 12 ? "PM" : "AM";
+
+    // Convert to 12-hour clock format
+    hours = (hours % 12) || 12;
+
+    // Add leading zeros if needed
+    hours = hours.toString().padStart(2, '0');
+    minutes = minutes.toString().padStart(2, '0');
+
+    return `${hours}:${minutes} ${period}`;
+}
+
+{% if search_username %}
+document.getElementById("calendarInput").addEventListener("change", function () {
+    const selectedDate = new Date(this.value);
+    const formattedDate = formatDate(selectedDate);
+    document.getElementById("selected-date").textContent = "Selected Date: " + formattedDate;
+
+    // Get the timestamp data from the table (assuming it is present in the "data" array)
+    const timestampData = {{ data | tojson }};
+
+    // Only proceed if timestampData is available
+    if (timestampData) {
+        // Loop through the data to find the corresponding timestamp time
+        let timestampTime = "Timestamp not found";
+        for (const entry of timestampData) {
+            const timestampDate = new Date(entry.timestamp);
+            const formattedTimestampDate = formatDate(timestampDate);
+
+            if (formattedDate === formattedTimestampDate) {
+                timestampTime = formatTime(timestampDate);
+                break;
+            }
+        }
+
+        document.getElementById("selected-timestamp").textContent = "Timestamp Time: " + timestampTime;
+    }
+});
+{% endif %}
+</script>
+
+{% endblock %}

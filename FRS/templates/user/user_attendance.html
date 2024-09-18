@@ -1,0 +1,52 @@
+{% extends "user_base_template.html" %}
+{% block title %}User Attendance{% endblock %}
+{% block content %}
+
+<!-- attendance content -->
+<br/>
+<h2 class="user-attendance-h2">View Attendance</h2>
+<p class="user-attendance-p">Please refer to the table below to view your current and past attendance records</p>
+
+<!-- Search Form -->
+<br/>
+<div class="attendance-search-form">
+    <form action="{{ url_for('attendance') }}" method="get" style="text-align: right;">
+        <div class="search-input">
+            <input type="text" name="module" placeholder="Module Name" id="search_module" {% if search_module %}value="{{ search_module }}" {% endif %} required>
+        </div>
+        <div class="search-buttons">
+            <button type="submit" class="button"><i class="fa fa-search"></i></button>
+            <a href="{{ url_for('attendance') }}" class="button">Clear Search</a>
+        </div>
+    </form>
+</div>
+
+<table class="table-user-attendance">
+    <tr>
+        <th>Username</th>
+        <th>Timestamp (Sign In)</th>
+        <th>Module</th>
+    </tr>
+    {% for record in attendance_records %}
+    <tr>
+        <td>{{ record[1] }}</td>
+        <td>{{ record[2] }}</td>
+        <td>{{ record[3] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- table pagination -->
+<div class="card-pagination-container" style="margin-top: 20px;">
+    <ul class="pagination pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; Previous</a></li>
+        {% for page_num in range(1, total_pages + 1) %}
+        <li class="page-item {% if page_num == current_page %}active{% endif %}" style="z-index: 0;">
+            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">Next &raquo;</a></li>
+    </ul>
+</div>
+
+{% endblock %}

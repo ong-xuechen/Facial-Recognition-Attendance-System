@@ -1,0 +1,35 @@
+{% extends "admin_base_template.html" %}
+{% block title %}Edit User{% endblock %}
+{% block content %}
+
+<!-- page content -->
+<div class="center-container-edit">
+    <div class="container-edit-user">
+        <div class="header-container-edit">
+            <h1>Edit User</h1>
+        </div>
+        <div class="body-container-edit">
+            <form action="{{ url_for('edit_user', user_id=user[0]) }}" method="POST">
+                {% if error %}
+                    <p class="alert alert-warning" style="color: red;">{{ error }}</p>
+                {% endif %}
+                <div class="form-group">
+                    <label for="username">Enter Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ user1 }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Select Role</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="user" {% if user[2] == 'user' %}selected{% endif %}>User</option>
+                        <option value="admin" {% if user[2] == 'admin' %}selected{% endif %}>Admin</option>
+                    </select>
+                </div>
+                <div class="alert alert-warning" id="errorAlert" style="display: none; color: red;">Error occurred during update.</div>
+                <div class="btn-container-update">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,20 +4,10 @@
 
 The Facial Recognition Attendance System is a comprehensive project developed as part of my final year polytechnic project. This system leverages advanced facial recognition technology to automate the attendance tracking process for students. By utilizing computer vision and machine learning algorithms, this system aims to enhance accuracy and efficiency in attendance management.
 
-(**NOTE:** You will need to manually add an Admin User in your database in 'user_database', as I removed all databases for privacy reasons and it is not permitted to add an Administrator Account through the Register Page.)
+## Disclaimer
+**Important:** This project is intended for educational and demonstration purposes only. It is not intended for use in real-world applications or production environments.
 
-
-(**DISCLAIMER:** Some parts of this project include code or components derived from open-source projects. These contributions have been utilized to enhance the functionality and efficiency of the project.)
-
-(**ASSISTANCE:** As this project of mine is still ongoing, you might encounter some problems whilst trying to use it. Please reach out to me through my socials and I will try to get back to you as soon as possible!)
-
-
-## Socials 
-
-- E-Mail Address: **ongxuechen@outlook.com**
-- LinkedIn: **www.www.linkedin.com/in/ong-xuechen**
-
-
+Some parts of this project include code or components derived from open-source projects. These contributions have been utilized to enhance the functionality and efficiency of the project. This project may have limitations in terms of security, performance, and scalability. Use it as a learning tool or for personal experimentation only. Always follow best practices and conduct proper security reviews for any real-world application.
 
 ## Objectives
 
@@ -34,6 +24,8 @@ The system operates by capturing real-time images of students as they enter the 
 2. **Face Recognition**: Each detected face is matched against a database of known faces to identify the student.
 3. **Attendance Logging**: Once a student is identified, their attendance is recorded in a database, marking them present for that session.
 4. **Reporting**: The system generates attendance reports that can be used for tracking and analysis.
+
+(**NOTE:** You will need to manually add an Admin User in your database in 'user_database', as I removed all databases for privacy reasons and it is not permitted to add an Administrator Account through the Register Page.)
 
 ## Technical Details
 
@@ -82,5 +74,13 @@ To get started with this project, follow these steps:
 **View Attendance: (USER)** The student will be able to view their attendance after they have logged in.
 
 **View Attendance: (ADMIN)** The administrator will be able to view/edit/remove student's attendance after they have logged in.
+
+## Contact
+For any questions or feedback, please contact me on my socials.
+
+## Socials
+**E-Mail Address:** ongxuechen@outlook.com
+
+**Linkedin:** www.linkedin.com/in/ong-xue-chen
 
 

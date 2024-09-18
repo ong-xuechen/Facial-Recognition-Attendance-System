@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Facial Recognition Attendance System is a comprehensive project developed as part of my final year university requirements. This system leverages advanced facial recognition technology to automate the attendance tracking process for students. By utilizing computer vision and machine learning algorithms, this system aims to enhance accuracy and efficiency in attendance management.
+The Facial Recognition Attendance System is a comprehensive project developed as part of my final year polytechnic project. This system leverages advanced facial recognition technology to automate the attendance tracking process for students. By utilizing computer vision and machine learning algorithms, this system aims to enhance accuracy and efficiency in attendance management.
 
 (**NOTE:** You will need to manually add an Admin User in your database in 'user_database', as I removed all databases for privacy reasons and it is not permitted to add an Administrator Account through the Register Page.)
 
@@ -33,7 +33,7 @@ The system operates by capturing real-time images of students as they enter the 
 
 - **Facial Recognition**: Utilizes state-of-the-art facial recognition technology to accurately identify students.
 - **Automated Attendance**: Automatically marks attendance based on facial recognition results.
-- **Real-Time Processing**: Processes images and updates attendance in real time.
+- **Real-Time Processing**: Processes images and updates attendance in real-time.
 - **Error Handling**: Includes mechanisms for handling recognition errors and ambiguous cases.
 - **User Interface**: Provides an easy-to-use interface for setup and monitoring.
 
